@@ -85,9 +85,9 @@ for k in kappa:
                  n1=2.4, n2=-1, n3=0, L1=100, L2=135, alpha=1e-3, kappa=k)
     ax.plot(device.lam0, 10*np.log10([np.abs(i**2)
             for i in device.TMM_MZI()[0][0]]), label=f"k={k}")
-    ax.set_xlabel('Wavelength [µm]')
-    ax.set_ylabel('Transmission [dB]')
-    ax.set_title('Transmission spectrum of the MZI')
+ax.set_xlabel('Wavelength [µm]')
+ax.set_ylabel('Transmission [dB]')
+ax.set_title('Transmission spectrum of the MZI')
 fig.legend(bbox_to_anchor=(0.4, 0.5))
 
 # %% example of the MZI transfer function as a function of effective index variance
@@ -99,7 +99,21 @@ for d in dneff:
                  n1=2.4+d, n2=-1, n3=0, L1=100, L2=135, alpha=1e-3, kappa=0.5)
     ax.plot(device.lam0, 10*np.log10([np.abs(i**2)
             for i in device.TMM_MZI()[0][0]]), label=f"Δn_eff={d}")
-    ax.set_xlabel('Wavelength [µm]')
-    ax.set_ylabel('Transmission [dB]')
-    ax.set_title('Transmission spectrum of the MZI')
+ax.set_xlabel('Wavelength [µm]')
+ax.set_ylabel('Transmission [dB]')
+ax.set_title('Transmission spectrum of the MZI')
+fig.legend(bbox_to_anchor=(0.4, 0.5))
+
+# %% example of the MZI transfer function as a function of waveguide loss
+loss = np.linspace(0, 5e-3, 6)
+
+fig, ax = plt.subplots()
+for l in loss:
+    device = mzi(wavl_start=1.53e-6, wavl_stop=1.57e-6, resolution=0.001, lam=1.55,
+                 n1=2.4, n2=-1, n3=0, L1=100, L2=135, alpha=l, kappa=0.5)
+    ax.plot(device.lam0, 10*np.log10([np.abs(i**2)
+            for i in device.TMM_MZI()[0][0]]), label=f"Loss={l} /µm")
+ax.set_xlabel('Wavelength [µm]')
+ax.set_ylabel('Transmission [dB]')
+ax.set_title('Transmission spectrum of the MZI')
 fig.legend(bbox_to_anchor=(0.4, 0.5))

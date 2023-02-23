@@ -54,7 +54,7 @@ class mzi:
         beta = np.sqrt((1-self.kappa)/2)
         M_dc = np.array([[1, self.kappa], [1-self.kappa, 1]])
         M_wg = np.array([[0, np.exp(-1j*self.beta*self.L1)],
-                        [np.exp(-1j*self.beta*self.L2), 0]])
+                        [np.exp(-1j*self.beta*self.L2), 0]], dtype=list)
         M = np.dot(np.dot(M_dc, M_wg), M_dc)
 
         return np.dot(M, np.array([[1], [0]]))
